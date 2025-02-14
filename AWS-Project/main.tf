@@ -27,7 +27,11 @@ resource "aws_internet_gateway" "my-igw" {
 resource "aws_route_table" "rt" {
     name = "rt"
     vpc_id = aws_vpc.my_vpc.id
+    
+    route {
+    cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.my-igw.id
+  }
 }
 
 resource "aws_route_table_association" "rta" {
@@ -51,6 +55,13 @@ resource "aws_security_group" "renu-sg" {
          cidr_blocks      = ["0.0.0.0/0"]
     
   }
+       ingress {
+        description = "HTTP from VPC"
+        from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
        egress {
          from_port        = 0
@@ -68,6 +79,7 @@ resource "aws_instance" "instance1" {
     vpc_id = aws_vpc.my_vpc.id
     subnet_id = aws_subnet.subnet1.id
     security_groups = aws_security_group.renu-sg.name
+    user_data              = base64encode(file("userdata.sh"))
 
 
 }
@@ -80,6 +92,7 @@ resource "aws_instance" "instance2" {
     vpc_id = aws_vpc.my_vpc.id
     subnet_id = aws_subnet.subnet2.id
     security_groups = aws_security_group.renu-sg.id
+    user_data              = base64encode(file("userdata1.sh"))
 
 
 }
@@ -104,6 +117,11 @@ resource "aws_lb_target_group" "test-tg" {
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.my_vpc.id
+
+  health_check {
+    path = "/"
+    port = "traffic-port"
+  }
 }
 
 resource "aws_lb_target_group_attachment" "test1" {
@@ -120,7 +138,7 @@ resource "aws_lb_target_group_attachment" "test2" {
 
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.test-lb.arn
-  port              = "443"
+  port              = 80
   protocol          = "HTTPS"
   
   
