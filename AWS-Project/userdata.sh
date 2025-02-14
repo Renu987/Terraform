@@ -1,18 +1,20 @@
-
 #!/bin/bash
-apt update
-apt install -y apache2
+# Update the package list
+yum update -y
+
+# Install Apache
+yum install -y httpd
 
 # Get the instance ID using the instance metadata
 INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
 
 # Install the AWS CLI
-apt install -y awscli
+yum install -y aws-cli
 
-# Download the images from S3 bucket
-#aws s3 cp s3://myterraformprojectbucket2023/project.webp /var/www/html/project.png --acl public-read
+# Optional: Uncomment this line to download images from the S3 bucket
+# aws s3 cp s3://myterraformprojectbucket2023/project.webp /var/www/html/project.png --acl public-read
 
-# Create a simple HTML file with the portfolio content and display the images
+# Create a simple HTML file with the portfolio content and display the instance ID
 cat <<EOF > /var/www/html/index.html
 <!DOCTYPE html>
 <html>
@@ -34,12 +36,10 @@ cat <<EOF > /var/www/html/index.html
   <h1>Terraform Project Server 1</h1>
   <h2>Instance ID: <span style="color:green">$INSTANCE_ID</span></h2>
   <p>Welcome to Renuka Universe</p>
-  
 </body>
 </html>
 EOF
 
-# Start Apache and enable it on boot
-systemctl start apache2
-systemctl enable apache2
-
+# Start Apache and enable it to start on boot
+systemctl start httpd
+systemctl enable httpd
