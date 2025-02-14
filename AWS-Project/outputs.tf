@@ -1,6 +1,2 @@
-output "aws_lb_dns" "lb_dns" {
-  value       = ""
-  sensitive   = true
-  description = "description"
-  
-}
+output "loadbalancerdns" {
+  value = aws_lb.myalb.dns_name
