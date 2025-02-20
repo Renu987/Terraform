@@ -3,11 +3,11 @@ provider "aws" {
 }
 
 module "ec2_instance" {
-  source = "./modules/ec2_instance"
+  source = "./ec2_instance"
   
 }
 
 module "s3_bucket" {
-  source = "./modules/s3-bucket/"
+  source = "./s3-bucket"
 
 }
