@@ -1,0 +1,19 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - echo Installing Terraform...
+      - curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor > /usr/share/keyrings/hashicorp-archive-keyring.gpg
+      - sudo apt update && sudo apt install terraform
+  build:
+    commands:
+      - echo Running Terraform Init...
+      - cd 
+      - terraform init
+      - echo Running Terraform Plan...
+      - terraform plan
+      - echo Running Terraform Apply...
+      - terraform apply -auto-approve
+artifacts:
+  files:
+    - '**/*'
