@@ -3,8 +3,8 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket"  "my_bucket" {
-  bucket = "my-unique-bucket-name"
-  acl    = "private"
+  bucket = var.bucket_name
+  acl    = var.acl_name
 
   tags = {
     Name        = "my-s3-bucket"
