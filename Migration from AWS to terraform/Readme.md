@@ -1,4 +1,4 @@
-## How to Migrate an AWS existing resource to Terraform
+## How to Migrate an AWS existing resource to Terraform using "terraform import"
 
 Create a folder --main.tf -- 
 
