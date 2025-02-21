@@ -1,7 +1,7 @@
-resource "aws_instance" "webserver1" {
-  ami                    = "ami-053a45fff0a704a47"
-  instance_type          = "t2.micro"
+resource "aws_instance" "example" {
+    ami = var.ami_value
+    instance_type = var.instance_type_value
   }
-resource "aws_s3_bucket" "example" {
-  bucket = "renukaterraform2025project"
+resource "aws_s3_bucket" "my-bucket" {
+  bucket = var.bucket_name
 }
