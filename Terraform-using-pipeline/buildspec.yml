@@ -1,19 +1,24 @@
 version: 0.2
+
 phases:
   install:
     commands:
       - echo Installing Terraform...
-      - curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor > /usr/share/keyrings/hashicorp-archive-keyring.gpg
-      - sudo apt update && sudo apt install terraform
+      - wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+      - echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+      - sudo apt update
+      - sudo apt install -y terraform
   build:
     commands:
       - echo Running Terraform Init...
-      - cd 
+      - cd Terraform-using-pipeline/
       - terraform init
       - echo Running Terraform Plan...
       - terraform plan
       - echo Running Terraform Apply...
       - terraform apply -auto-approve
+
+
 artifacts:
   files:
     - '**/*'
