@@ -4,7 +4,7 @@ First create the scripts and keep in the github repository
 
 Go to AWS management console and open the service code build
 
-Create a project in code build using buildspec.yml
+Create a project in code build using buildspec.yml and github as source (https://github.com/Renu987/Terraform)
 
 Role ( give resource full access like ec2 full access and s3 full access+ CloudWatchLogsFullAccess)
 
