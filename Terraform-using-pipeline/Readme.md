@@ -16,6 +16,17 @@ Add other stage for terraform destroy using code build as provider using buildsp
 
 use the same role for both build stages as it has required policies attached
 
+## AWS Code Pipeline:
+
+Name :
+Source Provider : GITHUB
+Repo URL : Renu987/Terraform
+Branch : main
+Other providers ---> Codebuild --> Provisioned codebuild project
+Create pipeline ----> Edit pipeline ---> Add stage after build stage
+Name : Approval stage ---> add action --> (manual approval/SNS)  
+Add stage --> Name : Destory --> Add action --> provider: Codebuild --> Destroy codebuild project --> Release pipeline after saving
+
 
 
 
