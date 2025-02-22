@@ -1,6 +1,9 @@
 ## Using Terraform in Codepipeline for creating resources in AWS and destroying on approval
 
-First create the scripts and keep in the github repository
+# Prerequisites: 
+1) First create the scripts and keep in the github repository
+2) Create S3 bucket and dynamodb table for backend statefiles configuaration
+   
 
 Go to AWS management console and open the service code build
 
