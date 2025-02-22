@@ -14,6 +14,8 @@ Edit the pipeline and Add approval stage in pipeline (manual approval)
 
 Add other stage for terraform destroy using code build as provider using buildspec file for destry
 
+use the same role for both build stages as it has required policies attached
+
 
 
 
